@@ -49,9 +49,14 @@ public class MealController {
 //        return ResponseEntity.ok(m);
 //    }
 
-    @GetMapping(value = "/meal/{phrase}")
-    public ResponseEntity<List<MealConDescrizione>> response(@PathVariable("phrase") String text) {
-        List<MealConDescrizione> mList= mealDescriptionList.stream().filter(n->n.getDescription().contains(text)).toList();
+//    @GetMapping(value = "/meal/{phrase}")
+//    public ResponseEntity<List<MealConDescrizione>> response(@PathVariable("phrase") String text) {
+//        List<MealConDescrizione> mList= mealDescriptionList.stream().filter(n->n.getDescription().contains(text)).toList();
+//        return ResponseEntity.ok(mList);
+//    }
+    @GetMapping(value = "/meal")
+    public ResponseEntity<List<MealConDescrizione>> response(@RequestParam("min") Double min, @RequestParam("max") Double max) {
+        List<MealConDescrizione> mList= mealDescriptionList.stream().filter(n->n.getPrice()<=max&&n.getPrice()>=min).toList();
         return ResponseEntity.ok(mList);
     }
 
