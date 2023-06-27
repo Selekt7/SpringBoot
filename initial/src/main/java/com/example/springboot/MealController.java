@@ -43,4 +43,9 @@ public class MealController {
         this.mealList.add(meal);
         return ResponseEntity.ok("Aggiornamento effettuato!");
     }
+    @DeleteMapping(value = "/delete/meal/{name}")
+    public ResponseEntity<String> deleteMealByName(@PathVariable String name){
+        this.mealList.removeIf(meal -> meal.getName().equals(name));
+        return ResponseEntity.ok("Pasto cancellato! :(");
+    }
 }
