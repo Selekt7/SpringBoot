@@ -29,29 +29,44 @@ public class MealController {
 
     @GetMapping(value = "/get/meal/{name}")
     public ResponseEntity<List<Meal>> getMealByName(@PathVariable("name") String name) {
-        Meal meal= new Meal("", 0.0, "");
+        Meal meal = new Meal("", 0.0, "");
         List<Meal> m = mealList.stream().filter(n -> n.getName().equalsIgnoreCase(name)).toList();
         return ResponseEntity.ok(m);
     }
+
     @PostMapping(value = "/post/meal")
-    public ResponseEntity<String> postMeal(@RequestBody Meal meal){
+    public ResponseEntity<String> postMeal(@RequestBody Meal meal) {
         this.mealList.add(meal);
-        return ResponseEntity.ok( "meal added!");
+        return ResponseEntity.ok("meal added!");
     }
+
     @PutMapping(value = "/put/meal/{name}")
-    public ResponseEntity<String> putMeal(@PathVariable String name, @RequestBody Meal meal){
+    public ResponseEntity<String> putMeal(@PathVariable String name, @RequestBody Meal meal) {
         this.mealList.removeIf(m -> m.getName().equalsIgnoreCase(name));
         this.mealList.add(meal);
         return ResponseEntity.ok("Aggiornamento effettuato!");
     }
+
     @DeleteMapping(value = "/delete/meal/{name}")
-    public ResponseEntity<String> deleteMealByName(@PathVariable String name){
+    public ResponseEntity<String> deleteMealByName(@PathVariable String name) {
         this.mealList.removeIf(meal -> meal.getName().equals(name));
         return ResponseEntity.ok("Pasto cancellato! :(");
     }
+
     @DeleteMapping(value = "/delete/meals/price/{maxPrice}")
-    public ResponseEntity<String> deleteMealByPrice(@PathVariable Double maxPrice){
-        this.mealList.removeIf(meal -> meal.getPrice()>=maxPrice);
-        return ResponseEntity.ok("Cancellati tutti i pasti che costano più di "+ maxPrice+" euro.");
+    public ResponseEntity<String> deleteMealByPrice(@PathVariable Double maxPrice) {
+        this.mealList.removeIf(meal -> meal.getPrice() >= maxPrice);
+        return ResponseEntity.ok("Cancellati tutti i pasti che costano più di " + maxPrice + " euro.");
+    }
+
+    @PutMapping(value = "/put/meal/{name}/price")
+    public ResponseEntity<String> updatePriceByName(@PathVariable String name, @RequestBody Double price) {
+        for (Meal meal : mealList) {
+            if (meal.getName().equalsIgnoreCase(name)) {
+                meal.setPrice(price);
+                break;
+            }
+        }
+        return ResponseEntity.ok("Prezzo aggiornato con successo");
     }
 }
