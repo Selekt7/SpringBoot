@@ -3,9 +3,13 @@ package com.example.springboot;
 public class Meal {
     private String name;
     private Double price;
-    public Meal(String name, Double price){
-        this.name=name;
-        this.price=price;
+    private String description;
+
+
+    public Meal(String name, Double price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
     }
 
     public String getName() {
@@ -22,5 +26,13 @@ public class Meal {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
