@@ -37,4 +37,10 @@ public class MealController {
         this.mealList.add(meal);
         return ResponseEntity.ok( "meal added!");
     }
+    @PutMapping(value = "/put/meal/{name}")
+    public ResponseEntity<String> putMeal(@PathVariable String name, @RequestBody Meal meal){
+        this.mealList.removeIf(m -> m.getName().equalsIgnoreCase(name));
+        this.mealList.add(meal);
+        return ResponseEntity.ok("Aggiornamento effettuato!");
+    }
 }
