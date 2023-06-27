@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,5 +48,10 @@ public class MealController {
     public ResponseEntity<String> deleteMealByName(@PathVariable String name){
         this.mealList.removeIf(meal -> meal.getName().equals(name));
         return ResponseEntity.ok("Pasto cancellato! :(");
+    }
+    @DeleteMapping(value = "/delete/meals/price/{maxPrice}")
+    public ResponseEntity<String> deleteMealByPrice(@PathVariable Double maxPrice){
+        this.mealList.removeIf(meal -> meal.getPrice()>=maxPrice);
+        return ResponseEntity.ok("Cancellati tutti i pasti che costano più di "+ maxPrice+" euro.");
     }
 }
