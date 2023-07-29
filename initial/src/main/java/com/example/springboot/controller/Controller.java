@@ -23,8 +23,8 @@ public class Controller {
         return ResponseEntity.ok().body(ingredientService.getAll());
     }
     @GetMapping("/get-winter-meal")
-    public ResponseEntity<List<Meal>> getWimterMeals(){
-        return ResponseEntity.ok().body(mealService.getWinterMeal());
+    public ResponseEntity<List<Meal>> getWimterMeals(@RequestParam Double latitude, @RequestParam Double longitude){
+        return ResponseEntity.ok().body(mealService.getWinterMeal(latitude, longitude));
     }
     @PostMapping("/post")
     public ResponseEntity<Ingredient> postIngredient(@RequestBody Ingredient ingredient){
